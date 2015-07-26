@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import six
 import itertools
 from datetime import datetime
 from . import conf
@@ -43,7 +44,7 @@ def record_events(uuids, event_names, event_types=None, dt=None, client='default
     # `event_types` may be string, event class or events list
     if event_types is None:
         event_types = [DayEvent]
-    elif (isinstance(event_types, basestring) or
+    elif (isinstance(event_types, six.string_types) or
             not isinstance(event_types, (list, tuple, set))):
         event_types = [event_types]
     # Resolve event aliasses
@@ -110,7 +111,7 @@ class Event(Base, MixinBitwise):
 
         def fset(self, sequence):
             """ Automatically create `Sequence` instance by name. """
-            if isinstance(sequence, basestring):
+            if isinstance(sequence, six.string_types):
                 sequence = Sequence(sequence, self.client)
             self._sequence = sequence
 

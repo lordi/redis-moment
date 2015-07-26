@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import itertools
+import six
 from datetime import datetime
 from . import conf
 from .collections import BaseCounter
@@ -30,16 +31,16 @@ def update_counters(counter_names, iterable=None, counter_types=None, dt=None,
     """
     client = conf.get_connection(client)
 
-    if isinstance(counter_names, basestring):
+    if isinstance(counter_names, six.string_types):
         counter_names = [counter_names]
 
-    if isinstance(iterable, basestring):
+    if isinstance(iterable, six.string_types):
         iterable = [iterable]
 
     # `counter_types` may be string, event class or events list
     if counter_types is None:
         counter_types = [DayCounter]
-    elif (isinstance(counter_types, basestring) or
+    elif (isinstance(counter_types, six.string_types) or
             not isinstance(counter_types, (list, tuple, set))):
         counter_types = [counter_types]
     # Resolve counters aliasses
